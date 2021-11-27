@@ -1,3 +1,8 @@
+
+# import sys
+# print(sys.version)
+
+
 # GUICIA.py
 from tkinter import *
 import tkinter.scrolledtext as st
@@ -44,6 +49,32 @@ def FixedText(x,y,text='fixed text',font=f2,color=fg):
 	L1 = Label(GUI,text=text,bg=bg,fg=color,font=font)
 	L1.place(x=x,y=y)
 
+
+# Entry
+v_search = StringVar()
+E1 = Entry(GUI,textvariable=v_search,font=('Angsana New',20),width=70 ,bg=bg, fg=fg)
+E1.configure(insertbackground=fg)
+E1.configure(highlightthickness=2, highlightbackground=fg, highlightcolor=fg)
+E1.place(x=600,y=40)
+
+def Search(event):
+	keyword = v_search.get()
+	try:
+		text = wikipedia.summary(keyword)
+		v_experience.set('')
+		v_experience.set(text)
+		experience.delete(1.0,END)
+		experience.insert(INSERT, v_experience.get())
+	except:
+		v_experience.set('')
+		v_experience.set('-----No result-----')
+		experience.delete(1.0,END)
+		experience.insert(INSERT, v_experience.get())
+
+
+E1.bind('<Return>',Search)
+
+
 ##########LEFT ZONE###########
 # main
 FrameRect(50,100,900,40) #header bar
@@ -62,8 +93,8 @@ userphoto.place(x=60,y=150)
 v_experience = StringVar()
 v_experience.set('----experience result----')
 
-text = wikipedia.summary('albert einstein')
-v_experience.set(text)
+# text = wikipedia.summary('albert einstein')
+# v_experience.set(text)
 
 F1 = Frame(GUI,width=700)
 F1.place(x=70,y=600)
